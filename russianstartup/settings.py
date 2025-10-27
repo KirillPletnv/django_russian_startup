@@ -12,14 +12,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-load_dotenv()  # Загружает переменные из .env
+load_dotenv('.env.template')  # Загружает переменные из .env.template
 
 SECRET_KEY = os.getenv('SECRET_KEY')  # Берет из .env файла
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS')
+DEBUG = os.getenv('DEBUG', False)
+
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')  
 
 
 # Application definition
