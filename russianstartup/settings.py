@@ -1,29 +1,18 @@
 from pathlib import Path
-from dotenv import load_dotenv
 import os
+from environs import Env
 
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
+env = Env()
+env.read_env(BASE_DIR / '.env') 
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-
-load_dotenv('.env.template')  # Загружает переменные из .env.template
-
-SECRET_KEY = os.getenv('SECRET_KEY')  # Берет из .env файла
-
-# SECURITY WARNING: don't run with debug turned on in production!
-
-DEBUG = os.getenv('DEBUG', False) == 'True'
-
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')  
+SECRET_KEY = env.str('SECRET_KEY') 
+DEBUG = env.bool('DEBUG', False)
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS') 
 
 
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
